@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopee;
+namespace ShopeeV2;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
@@ -13,13 +13,13 @@ use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use Shopee\Nodes\NodeAbstract;
-use Shopee\Nodes;
-use Shopee\Exception\Api\AuthException;
-use Shopee\Exception\Api\BadRequestException;
-use Shopee\Exception\Api\ClientException;
-use Shopee\Exception\Api\Factory;
-use Shopee\Exception\Api\ServerException;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\Nodes;
+use ShopeeV2\Exception\Api\AuthException;
+use ShopeeV2\Exception\Api\BadRequestException;
+use ShopeeV2\Exception\Api\ClientException;
+use ShopeeV2\Exception\Api\Factory;
+use ShopeeV2\Exception\Api\ServerException;
 
 use function array_key_exists;
 use function array_merge;
@@ -54,6 +54,9 @@ class Client
 
     public const ENV_SHOP_ID_NAME = 'SHOPEE_SHOP_ID';
 
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
+
     /** @var ClientInterface */
     protected $httpClient;
 
@@ -71,6 +74,9 @@ class Client
 
     /** @var int */
     protected $shopId;
+
+    /** @var string Shopee access_tokeny */
+    protected $accessToken;
 
     /** @var NodeAbstract[] */
     protected $nodes = [];
@@ -96,6 +102,7 @@ class Client
         $this->secret = $config['secret'];
         $this->partnerId = $config['partner_id'];
         $this->shopId = $config['shopid'];
+        $this->accessToken = $config['access_token'];
 
         $signatureGenerator = $config[SignatureGeneratorInterface::class];
         if (is_null($signatureGenerator)) {
@@ -180,8 +187,9 @@ class Client
     {
         return [
             'partner_id' => $this->partnerId,
-            'shopid' => $this->shopId,
             'timestamp' => time(), // Put the current UNIX timestamp when making a request
+            'access_token' => $this->accessToken,
+            'shop_id' => $this->shopId,
         ];
     }
 
@@ -204,23 +212,24 @@ class Client
      * Generate an HMAC-SHA256 signature for a HTTP request
      *
      * @param UriInterface $uri
-     * @param string $body
+     * @param array $data
      * @return string
      */
-    protected function signature(UriInterface $uri, string $body): string
+    protected function signature(UriInterface $uri, array $data): string
     {
-        $url = Uri::composeComponents($uri->getScheme(), $uri->getAuthority(), $uri->getPath(), '', '');
-
-        return $this->signatureGenerator->generateSignature($url, $body);
+        $data['api_path'] = Uri::composeComponents($uri->getScheme(), $uri->getAuthority(), $uri->getPath(), '', '');
+        $signBaseString = $this->signatureGenerator->signBaseString($data, SignatureGenerator::TYPE_SHOP_APIS);
+        return $this->signatureGenerator->generateSignature($signBaseString);
     }
 
     /**
+     * @param string $method
      * @param string|UriInterface $uri
      * @param array $headers
      * @param array $data
      * @return RequestInterface
      */
-    public function newRequest($uri, array $headers = [], $data = []): RequestInterface
+    public function newRequest($method = 'POST', $uri, array $headers = [], $data = []): RequestInterface
     {
         $uri = Utils::uriFor($uri);
         $path = $this->baseUrl->getPath() . $uri->getPath();
@@ -230,20 +239,28 @@ class Client
         }
         $uri = $uri->withPath($path);
 
+        $defaultParameters = $this->getDefaultParameters();
+        $data = array_merge($defaultParameters, $data);
+        $jsonBody = json_encode($data);
+        $signature = $this->signature($uri, $data);
+
+
         $uri = $uri
             ->withScheme($this->baseUrl->getScheme())
             ->withUserInfo($this->baseUrl->getUserInfo())
             ->withHost($this->baseUrl->getHost())
             ->withPort($this->baseUrl->getPort());
 
-        $jsonBody = $this->createJsonBody($data);
+        $httpBuildQuery = $defaultParameters;
+        $httpBuildQuery['sign'] = $signature;
+        $uri = $uri->withQuery(http_build_query($httpBuildQuery));
 
-        $headers['Authorization'] = $this->signature($uri, $jsonBody);
+        $headers['Authorization'] = $signature;
         $headers['User-Agent'] = $this->userAgent;
         $headers['Content-Type'] = 'application/json';
 
         return new Request(
-            'POST', // All APIs should use POST method
+            $method,
             $uri,
             $headers,
             $jsonBody

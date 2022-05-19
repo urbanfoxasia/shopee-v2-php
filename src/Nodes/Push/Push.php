@@ -1,9 +1,9 @@
 <?php
 
-namespace Shopee\Nodes\Push;
+namespace ShopeeV2\Nodes\Push;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\ResponseData;
 
 class Push extends NodeAbstract
 {

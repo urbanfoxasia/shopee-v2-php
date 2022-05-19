@@ -18,7 +18,7 @@ This is a [Shopee Partner API](https://open.shopee.com/documents) Client for PHP
 Execute the following command to get the package:
 
 ```console
-$ composer require minchao/shopee-php
+$ composer require urbanfoxasia/shopee-php-v2
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ Create an instance of the Shopee client, then use to access the Shopee Partner A
 ```php
 <?php
 
-use Shopee\Client;
+use ShopeeV2\Client;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -50,7 +50,7 @@ $response = $client->item->getItemDetail(['item_id' => 1978]);
 Alternatively, you can also use the parameter model within request.
 
 ```php
-$parameters = (new \Shopee\Nodes\Item\Parameters\GetItemDetail())
+$parameters = (new \ShopeeV2\Nodes\Item\Parameters\GetItemDetail())
     ->setItemId(1978);
 $response = $client->item->getItemDetail($parameters);
 ```
@@ -70,8 +70,8 @@ Use webhook to receive incoming push notifications:
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Shopee\SignatureGenerator;
-use Shopee\SignatureValidator;
+use ShopeeV2\SignatureGenerator;
+use ShopeeV2\SignatureValidator;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';

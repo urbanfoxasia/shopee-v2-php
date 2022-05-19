@@ -1,15 +1,15 @@
 {
-    "name": "minchao/shopee-php",
-    "description": "Shopee Partner API PHP SDK",
+    "name": "urbanfoxasia/shopee-php-v2",
+    "description": "Shopee Partner API V2 PHP SDK",
     "type": "library",
     "keywords": [
         "shopee",
         "openapi"
     ],
-    "homepage": "https://github.com/minchao/shopee-php",
+    "homepage": "https://github.com/urbanfoxasia/shopee-v2-php",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/minchao/shopee-php/issues"
+        "issues": "https://github.com/urbanfoxasia/shopee-v2-php/issues"
     },
     "require": {
         "php": ">=7.1",
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Shopee\\": "src"
+            "ShopeeV2\\": "src"
         }
     },
     "autoload-dev": {

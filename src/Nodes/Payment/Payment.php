@@ -1,9 +1,9 @@
 <?php
 
-namespace Shopee\Nodes\Payment;
+namespace ShopeeV2\Nodes\Payment;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\ResponseData;
 
 class Payment extends NodeAbstract
 {

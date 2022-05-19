@@ -1,13 +1,24 @@
 <?php
 
-namespace Shopee\Nodes\Logistics;
+namespace ShopeeV2\Nodes\Logistics;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\RequestParametersInterface;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\RequestParametersInterface;
+use ShopeeV2\ResponseData;
 
 class Logistics extends NodeAbstract
 {
+
+    /**
+     * Use this call to get all required param for init logistic.
+     *
+     * @return ResponseData
+     */
+    public function getChannelList(): ResponseData
+    {
+        return $this->get('/api/v2/logistics/get_channel_list');
+    }
+
     /**
      * Use this call to get all required param for init logistic.
      *

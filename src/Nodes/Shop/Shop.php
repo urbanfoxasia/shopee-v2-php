@@ -1,10 +1,10 @@
 <?php
 
-namespace Shopee\Nodes\Shop;
+namespace ShopeeV2\Nodes\Shop;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\RequestParametersInterface;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\RequestParametersInterface;
+use ShopeeV2\ResponseData;
 
 class Shop extends NodeAbstract
 {

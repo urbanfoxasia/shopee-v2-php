@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopee\Nodes\Item\Parameters;
+namespace ShopeeV2\Nodes\Item\Parameters;
 
 class UpdateVariationPrice extends UpdatePrice
 {

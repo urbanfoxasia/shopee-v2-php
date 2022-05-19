@@ -1,10 +1,10 @@
 <?php
 
-namespace Shopee\Nodes\Custom;
+namespace ShopeeV2\Nodes\Custom;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\RequestParametersInterface;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\RequestParametersInterface;
+use ShopeeV2\ResponseData;
 
 class Custom extends NodeAbstract
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Shopee\Nodes\Item\Parameters;
+namespace ShopeeV2\Nodes\Item\Parameters;
 
-use Shopee\RequestParameterCollection;
-use Shopee\RequestParametersInterface;
+use ShopeeV2\RequestParameterCollection;
+use ShopeeV2\RequestParametersInterface;
 
 class Wholesales extends RequestParameterCollection
 {

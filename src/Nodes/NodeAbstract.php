@@ -1,12 +1,12 @@
 <?php
 
-namespace Shopee\Nodes;
+namespace ShopeeV2\Nodes;
 
 use Psr\Http\Message\UriInterface;
-use Shopee\Client;
-use Shopee\RequestParameters;
-use Shopee\RequestParametersInterface;
-use Shopee\ResponseData;
+use ShopeeV2\Client;
+use ShopeeV2\RequestParameters;
+use ShopeeV2\RequestParametersInterface;
+use ShopeeV2\ResponseData;
 
 abstract class NodeAbstract
 {
@@ -29,7 +29,19 @@ abstract class NodeAbstract
             $parameters = $parameters->toArray();
         }
 
-        $request = $this->client->newRequest($uri, [], $parameters);
+        $request = $this->client->newRequest(Client::METHOD_POST, $uri, [], $parameters);
+        $response = $this->client->send($request);
+
+        return new ResponseData($response);
+    }
+
+    /**
+     * @param $uri
+     * @return ResponseData
+     */
+    public function get($uri)
+    {
+        $request = $this->client->newRequest(Client::METHOD_GET, $uri, [], []);
         $response = $this->client->send($request);
 
         return new ResponseData($response);

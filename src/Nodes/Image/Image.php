@@ -1,9 +1,9 @@
 <?php
 
-namespace Shopee\Nodes\Image;
+namespace ShopeeV2\Nodes\Image;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\ResponseData;
 
 class Image extends NodeAbstract
 {

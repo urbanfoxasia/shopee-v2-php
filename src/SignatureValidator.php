@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopee;
+namespace ShopeeV2;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -22,7 +22,7 @@ class SignatureValidator
         if (empty($authorization)) {
             return false;
         }
-        if ($this->signatureGenerator->generateSignature($url, $body) !== $authorization) {
+        if ($this->signatureGenerator->generateSignature($body) !== $authorization) {
             return false;
         }
         return true;

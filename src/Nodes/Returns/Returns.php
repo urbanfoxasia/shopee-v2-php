@@ -1,10 +1,10 @@
 <?php
 
-namespace Shopee\Nodes\Returns;
+namespace ShopeeV2\Nodes\Returns;
 
-use Shopee\Nodes\NodeAbstract;
-use Shopee\RequestParametersInterface;
-use Shopee\ResponseData;
+use ShopeeV2\Nodes\NodeAbstract;
+use ShopeeV2\RequestParametersInterface;
+use ShopeeV2\ResponseData;
 
 class Returns extends NodeAbstract
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopee;
+namespace ShopeeV2;
 
 interface RequestParametersInterface
 {

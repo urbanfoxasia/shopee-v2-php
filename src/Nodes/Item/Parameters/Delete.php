@@ -1,8 +1,8 @@
 <?php
 
-namespace Shopee\Nodes\Item\Parameters;
+namespace ShopeeV2\Nodes\Item\Parameters;
 
-use Shopee\RequestParameters;
+use ShopeeV2\RequestParameters;
 
 class Delete extends RequestParameters
 {

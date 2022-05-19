@@ -1,8 +1,8 @@
 <?php
 
-namespace Shopee;
+namespace ShopeeV2;
 
 interface SignatureGeneratorInterface
 {
-    public function generateSignature(string $url, string $body): string;
+    public function generateSignature(string $string): string;
 }
