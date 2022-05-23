@@ -18,7 +18,7 @@ This is a [Shopee Partner API](https://open.shopee.com/documents) Client for PHP
 Execute the following command to get the package:
 
 ```console
-$ composer require urbanfoxasia/shopee-php-v2
+$ composer require urbanfoxasia/shopee-v2-php
 ```
 
 ## Usage

@@ -1,7 +1,8 @@
 {
-    "name": "urbanfoxasia/shopee-php-v2",
+    "name": "urbanfoxasia/shopee-v2-php",
     "description": "Shopee Partner API V2 PHP SDK",
     "type": "library",
+    "minimum-stability": "dev",
     "keywords": [
         "shopee",
         "openapi"
