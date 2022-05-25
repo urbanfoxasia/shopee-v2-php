@@ -30,7 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Shopee\\Tests\\": "tests"
+            "ShopeeV2\\Tests\\": "tests"
         }
     },
     "config": {

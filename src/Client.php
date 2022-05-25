@@ -92,7 +92,7 @@ class Client
             'userAgent' => self::DEFAULT_USER_AGENT,
             'secret' => getenv(self::ENV_SECRET_NAME),
             'partner_id' => (int)getenv(self::ENV_PARTNER_ID_NAME),
-            'shopid' => (int)getenv(self::ENV_SHOP_ID_NAME),
+            'shop_id' => (int)getenv(self::ENV_SHOP_ID_NAME),
             SignatureGeneratorInterface::class => null,
         ], $config);
 
@@ -101,7 +101,7 @@ class Client
         $this->setUserAgent($config['userAgent']);
         $this->secret = $config['secret'];
         $this->partnerId = $config['partner_id'];
-        $this->shopId = $config['shopid'];
+        $this->shopId = $config['shop_id'];
         $this->accessToken = $config['access_token'];
 
         $signatureGenerator = $config[SignatureGeneratorInterface::class];
