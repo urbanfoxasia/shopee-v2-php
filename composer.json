@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ShopeeV2\\": "src"
+            "ShopeeV2\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ShopeeV2\\Tests\\": "tests"
+            "ShopeeV2\\Tests\\": "tests/"
         }
     },
     "config": {
