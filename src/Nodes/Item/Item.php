@@ -63,4 +63,28 @@ class Item extends NodeAbstract
         return $this->post('/api/v2/product/update_stock', $parameters);
     }
 
+    /**
+     * @return ResponseData
+     */
+    public function getCategory(): ResponseData
+    {
+        return $this->get('/api/v2/product/get_category');
+    }
+
+    /**
+     * @return ResponseData
+     */
+    public function getAttributes(): ResponseData
+    {
+        return $this->get('/api/v2/product/get_attributes');
+    }
+
+    /**
+     * @return ResponseData
+     */
+    public function getModelList(): ResponseData
+    {
+        return $this->get('/api/v2/product/get_model_list');
+    }
+
 }

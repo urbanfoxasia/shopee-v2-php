@@ -16,6 +16,6 @@ class Image extends NodeAbstract
      */
     public function uploadImage($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/image/upload', $parameters);
+        return $this->post('/api/v2/media_space/upload_image', $parameters);
     }
 }
