@@ -39,9 +39,9 @@ abstract class NodeAbstract
      * @param $uri
      * @return ResponseData
      */
-    public function get($uri)
+    public function get($uri, $parameters = [])
     {
-        $request = $this->client->newRequest(Client::METHOD_GET, $uri, [], []);
+        $request = $this->client->newRequest(Client::METHOD_GET, $uri, [], $parameters);
         $response = $this->client->send($request);
 
         return new ResponseData($response);

@@ -64,27 +64,30 @@ class Item extends NodeAbstract
     }
 
     /**
+     * @param $parameters
      * @return ResponseData
      */
-    public function getCategory(): ResponseData
+    public function getCategory($parameters = []): ResponseData
     {
-        return $this->get('/api/v2/product/get_category');
+        return $this->get('/api/v2/product/get_category', $parameters);
     }
 
     /**
+     * @param $parameters
      * @return ResponseData
      */
-    public function getAttributes(): ResponseData
+    public function getAttributes($parameters = []): ResponseData
     {
-        return $this->get('/api/v2/product/get_attributes');
+        return $this->get('/api/v2/product/get_attributes', $parameters);
     }
 
     /**
+     * @param $parameters
      * @return ResponseData
      */
-    public function getModelList(): ResponseData
+    public function getModelList($parameters = []): ResponseData
     {
-        return $this->get('/api/v2/product/get_model_list');
+        return $this->get('/api/v2/product/get_model_list', $parameters);
     }
 
 }

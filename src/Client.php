@@ -253,6 +253,11 @@ class Client
 
         $httpBuildQuery = $defaultParameters;
         $httpBuildQuery['sign'] = $signature;
+
+        if ($method == self::METHOD_GET) {
+            $httpBuildQuery = array_merge($httpBuildQuery, $data);
+        }
+
         $uri = $uri->withQuery(http_build_query($httpBuildQuery));
 
         $headers['Authorization'] = $signature;
