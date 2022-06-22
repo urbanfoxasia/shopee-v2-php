@@ -5,6 +5,7 @@ namespace ShopeeV2;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException as GuzzleServerException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
@@ -294,5 +295,32 @@ class Client
         }
 
         return $response;
+    }
+
+    /**
+     * @param string $uri
+     * @param array $data
+     * @param string $method
+     * @return ResponseInterface
+     * @throws GuzzleException
+     */
+    public function multipartRequest($uri, $data, $method = 'post'): ResponseInterface
+    {
+        $uri = Utils::uriFor($uri);
+        $path = $this->baseUrl->getPath() . $uri->getPath();
+
+        if (substr($path, 0, 1) !== '/') {
+            $path = '/' . $path;
+        }
+        $uri = $uri->withPath($path);
+
+        $defaultParameters = $this->getDefaultParameters();
+        $data = array_merge($defaultParameters, $data);
+        $httpBuildQuery = array_merge($defaultParameters, [
+            'sign' => $this->signature($uri, $data)
+        ]);
+
+        $url = sprintf('%s%s?%s', $this->getBaseUrl(), $path, http_build_query($httpBuildQuery));
+        return $this->getHttpClient()->request($method, $url, $data);
     }
 }
