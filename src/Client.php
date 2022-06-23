@@ -6,6 +6,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use GuzzleHttp\Exception\ServerException as GuzzleServerException;
+use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Utils;
@@ -13,20 +14,13 @@ use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use ShopeeV2\Nodes\NodeAbstract;
-use ShopeeV2\Nodes;
 use ShopeeV2\Exception\Api\AuthException;
 use ShopeeV2\Exception\Api\BadRequestException;
 use ShopeeV2\Exception\Api\ClientException;
 use ShopeeV2\Exception\Api\Factory;
 use ShopeeV2\Exception\Api\ServerException;
-
-use function array_key_exists;
-use function array_merge;
-use function getenv;
-use function json_encode;
-use function time;
-use function substr;
+use ShopeeV2\Nodes;
+use ShopeeV2\Nodes\NodeAbstract;
 
 /**
  * @property Nodes\Item\Item $item
@@ -91,8 +85,8 @@ class Client
             'baseUrl' => self::DEFAULT_BASE_URL,
             'userAgent' => self::DEFAULT_USER_AGENT,
             'secret' => getenv(self::ENV_SECRET_NAME),
-            'partner_id' => (int)getenv(self::ENV_PARTNER_ID_NAME),
-            'shop_id' => (int)getenv(self::ENV_SHOP_ID_NAME),
+            'partner_id' => (int) getenv(self::ENV_PARTNER_ID_NAME),
+            'shop_id' => (int) getenv(self::ENV_SHOP_ID_NAME),
             SignatureGeneratorInterface::class => null,
         ], $config);
 
@@ -229,7 +223,7 @@ class Client
      * @param array $data
      * @return RequestInterface
      */
-    public function newRequest($method = 'POST', $uri, array $headers = [], $data = []): RequestInterface
+    public function newRequest($method = 'POST', $uri, array $headers = [], array $data = []): RequestInterface
     {
         $uri = Utils::uriFor($uri);
         $path = $this->baseUrl->getPath() . $uri->getPath();
@@ -241,9 +235,13 @@ class Client
 
         $defaultParameters = $this->getDefaultParameters();
         $data = array_merge($defaultParameters, $data);
-        $jsonBody = json_encode($data);
+        if (!empty($data['multipart'])) {
+            $body = new MultipartStream($data['multipart']);
+        } else {
+            $body = json_encode($data);
+            $headers['Content-Type'] = 'application/json';
+        }
         $signature = $this->signature($uri, $data);
-
 
         $uri = $uri
             ->withScheme($this->baseUrl->getScheme())
@@ -262,13 +260,12 @@ class Client
 
         $headers['Authorization'] = $signature;
         $headers['User-Agent'] = $this->userAgent;
-        $headers['Content-Type'] = 'application/json';
 
         return new Request(
             $method,
             $uri,
             $headers,
-            $jsonBody
+            $body
         );
     }
 
