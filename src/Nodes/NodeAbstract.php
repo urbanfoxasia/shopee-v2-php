@@ -46,4 +46,20 @@ abstract class NodeAbstract
 
         return new ResponseData($response);
     }
+
+    /**
+     * @param $uri
+     * @param $parameters
+     * @return ResponseData
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function multipartRequest($uri, $parameters)
+    {
+        if ($parameters instanceof RequestParametersInterface) {
+            $parameters = $parameters->toArray();
+        }
+
+        $response = $this->client->multipartRequest($uri, $parameters);
+        return new ResponseData($response);
+    }
 }

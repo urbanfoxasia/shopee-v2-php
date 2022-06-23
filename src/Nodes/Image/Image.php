@@ -13,9 +13,10 @@ class Image extends NodeAbstract
      * This way your potential invalid urls will not block your item upload process.
      * @param  array  $parameters
      * @return ResponseData
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function uploadImage($parameters = []): ResponseData
     {
-        return $this->post('/api/v2/media_space/upload_image', $parameters);
+        return $this->multipartRequest('/api/v2/media_space/upload_image', $parameters);
     }
 }
