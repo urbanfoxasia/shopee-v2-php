@@ -11,7 +11,6 @@ class SignatureGenerator implements SignatureGeneratorInterface
     const TYPE_PUBLIC_APIS = 'PUBLIC_APIS';
 
     private $partnerKey;
-    private $signString;
 
     public function __construct(string $partnerKey)
     {
@@ -32,7 +31,7 @@ class SignatureGenerator implements SignatureGeneratorInterface
      * @param $type
      * @return $this|string
      */
-    public function signBaseString(array $data, $type)
+    public function signBaseString(array $data, string $type): string
     {
         if ($type === self::TYPE_SHOP_APIS) {
             return $this->signBaseStringShopApis($data);
