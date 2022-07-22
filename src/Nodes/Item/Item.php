@@ -90,4 +90,13 @@ class Item extends NodeAbstract
         return $this->get('/api/v2/product/get_model_list', $parameters);
     }
 
+    /**
+     * @param $parameters
+     * @return ResponseData
+     */
+    public function deleteItem($parameters = []): ResponseData
+    {
+        return $this->post('/api/v2/product/delete_item', $parameters);
+    }
+
 }
