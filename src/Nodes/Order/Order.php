@@ -56,10 +56,10 @@ class Order extends NodeAbstract
     /**
      * Get order list from shopee by time range and order status
      *
-     * @param  array  $parameters
+     * @param  array|RequestParametersInterface  $parameters
      * @return ResponseData
      */
-    public function getOrderList(array $parameters): ResponseData
+    public function getOrderList($parameters = []): ResponseData
     {
         return $this->get('/api/v2/order/get_order_list', $parameters);
     }
