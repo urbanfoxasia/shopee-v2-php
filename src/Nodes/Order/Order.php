@@ -54,14 +54,14 @@ class Order extends NodeAbstract
     }
 
     /**
-     * GetOrdersByStatus is the recommended call to use for order management.
+     * Get order list from shopee by time range and order status
      *
-     * @param array|RequestParametersInterface $parameters
+     * @param  array  $parameters
      * @return ResponseData
      */
-    public function getOrdersByStatus($parameters = []): ResponseData
+    public function getOrderList(array $parameters): ResponseData
     {
-        return $this->post('/api/v1/orders/get', $parameters);
+        return $this->get('/api/v2/order/get_order_list', $parameters);
     }
 
     /**
