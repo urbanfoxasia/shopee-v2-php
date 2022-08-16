@@ -45,12 +45,12 @@ class Order extends NodeAbstract
     /**
      * Use this call to retrieve detailed information about one or more orders based on OrderIDs.
      *
-     * @param array|RequestParametersInterface $parameters
+     * @param  array|RequestParametersInterface  $parameters
      * @return ResponseData
      */
-    public function getOrderDetails($parameters = []): ResponseData
+    public function getOrderDetail($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/orders/detail', $parameters);
+        return $this->get('/api/v2/order/get_order_detail', $parameters);
     }
 
     /**
