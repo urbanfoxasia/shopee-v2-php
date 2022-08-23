@@ -144,7 +144,7 @@ class Order extends NodeAbstract
     /**
      * Use this api to get detail information of many return by shop id.
      *
-     * @param  array|RequestParametersInterface  $parameters
+     * @param array|RequestParametersInterface $parameters
      * @return ResponseData
      */
     public function getReturnList($parameters = []): ResponseData
@@ -155,7 +155,7 @@ class Order extends NodeAbstract
     /**
      * Use this api to get detail information of a return by return id.
      *
-     * @param  array|RequestParametersInterface  $parameters
+     * @param array|RequestParametersInterface $parameters
      * @return ResponseData
      */
     public function getReturnDetail($parameters = []): ResponseData
