@@ -80,9 +80,9 @@ class Logistics extends NodeAbstract
      * @param array|RequestParametersInterface $parameters
      * @return ResponseData
      */
-    public function getLogisticInfo($parameters = []): ResponseData
+    public function getShippingParameter($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/logistics/init_info/get', $parameters);
+        return $this->get('/api/v2/logistics/get_shipping_parameter', $parameters);
     }
 
     /**
@@ -146,9 +146,9 @@ class Logistics extends NodeAbstract
      * @param array|RequestParametersInterface $parameters
      * @return ResponseData
      */
-    public function init($parameters = []): ResponseData
+    public function shipOrder($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/logistics/init', $parameters);
+        return $this->post('/api/v2/logistics/ship_order', $parameters);
     }
 
     /**
