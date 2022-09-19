@@ -2,6 +2,7 @@
 
 namespace ShopeeV2\Nodes\Logistics;
 
+use ShopeeV2\FileResponseData;
 use ShopeeV2\Nodes\NodeAbstract;
 use ShopeeV2\RequestParametersInterface;
 use ShopeeV2\ResponseData;
@@ -31,14 +32,14 @@ class Logistics extends NodeAbstract
     }
 
     /**
-     * Use this API to get airway bill for orders.
+     * Use this API to get shipping document for orders.
      *
      * @param array|RequestParametersInterface $parameters
-     * @return ResponseData
+     * @return FileResponseData
      */
-    public function getAirwayBill($parameters = []): ResponseData
+    public function getShippingDocument($parameters = []): FileResponseData
     {
-        return $this->post('/api/v1/logistics/airway_bill/get_mass', $parameters);
+        return $this->download('/api/v2/logistics/download_shipping_document', $parameters);
     }
 
     /**
@@ -135,9 +136,9 @@ class Logistics extends NodeAbstract
      * @param array|RequestParametersInterface $parameters
      * @return ResponseData
      */
-    public function getTrackingNo($parameters = []): ResponseData
+    public function getTrackingNumber($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/logistics/tracking_number/get_mass', $parameters);
+        return $this->get('/api/v2/logistics/get_tracking_number', $parameters);
     }
 
     /**
@@ -182,5 +183,27 @@ class Logistics extends NodeAbstract
     public function updateShopLogistics($parameters = []): ResponseData
     {
         return $this->post('/api/v1/logistics/channels/update', $parameters);
+    }
+
+    /**
+     * Create shipping document
+     *
+     * @param array|RequestParametersInterface $parameters $parameters
+     * @return ResponseData
+     */
+    public function createShippingDocument($parameters = []): ResponseData
+    {
+        return $this->post('/api/v2/logistics/create_shipping_document', $parameters);
+    }
+
+    /**
+     * Use this call to shipping document create result
+     *
+     * @param array|RequestParametersInterface $parameters $parameters
+     * @return ResponseData
+     */
+    public function getShippingDocumentResult($parameters = []): ResponseData
+    {
+        return $this->post('/api/v2/logistics/get_shipping_document_result', $parameters);
     }
 }
