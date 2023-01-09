@@ -127,7 +127,7 @@ class Order extends NodeAbstract
      */
     public function splitOrder($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/orders/split', $parameters);
+        return $this->post('/api/v2/order/split_order', $parameters);
     }
 
     /**
@@ -138,7 +138,7 @@ class Order extends NodeAbstract
      */
     public function undoSplitOrder($parameters = []): ResponseData
     {
-        return $this->post('/api/v1/orders/unsplit', $parameters);
+        return $this->post('/api/v2/order/unsplit_order', $parameters);
     }
 
     /**
