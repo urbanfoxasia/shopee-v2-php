@@ -26,4 +26,14 @@ class Payment extends NodeAbstract
     {
         return $this->post('/api/v1/payment/get_payout_details', $parameters);
     }
+
+    /**
+     * Use this API to fetch the escrow detail.
+     * @param  array  $parameters
+     * @return ResponseData
+     */
+    public function getEscrowDetail($parameters = []): ResponseData
+    {
+        return $this->get('/api/v2/payment/get_escrow_detail', $parameters);
+    }
 }
