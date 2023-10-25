@@ -19,10 +19,15 @@ class SignatureGenerator implements SignatureGeneratorInterface
 
     /**
      * @param string $string
+     * @param $url
      * @return string
      */
-    public function generateSignature(string $string): string
+    public function generateSignature(string $string, $url = null): string
     {
+        if ($url) {
+            $string = $url . '|' . $string;
+        }
+
         return hash_hmac('sha256', $string, $this->partnerKey);
     }
 

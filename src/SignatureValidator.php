@@ -22,7 +22,7 @@ class SignatureValidator
         if (empty($authorization)) {
             return false;
         }
-        if ($this->signatureGenerator->generateSignature($body) !== $authorization) {
+        if ($this->signatureGenerator->generateSignature($body, $url) !== $authorization) {
             return false;
         }
         return true;
